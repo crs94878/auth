@@ -1,0 +1,30 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://people.famaly/auth/obj"
+           xmlns:tns="http://people.famaly/auth/obj" elementFormDefault="qualified">
+    <xs:element name="authRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="authResponse">
+        <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="token" type="tns:Token"/>
+                </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Token">
+        <xs:sequence>
+            <xs:element name="session" type="xs:string"/>
+            <xs:element name="login" type="xs:string"/>
+            <xs:element name="userName" type="xs:string"/>
+            <xs:element name="validation" type="xs:boolean"/>
+            <xs:element name="tokenStr" type="xs:string"/>
+            <xs:element name="dateLogin" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
