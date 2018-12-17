@@ -6,5 +6,5 @@ import famaly.people.auth.obj.Token;
 
 public interface GeneratedTokenService {
 
-    AuthResponse getSessionToken(AuthRequest request, Token token);
+    AuthResponse getSessionToken(AuthRequest request);
 }
