@@ -21,6 +21,7 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
         byte[] loginByte = entity.getUserName().getBytes();
         byte[] passByte = entity.getPassword().getBytes();
         String loginStr = loginByte.toString();
+        String passStr = passByte.toString();
 
     }
     @Override
