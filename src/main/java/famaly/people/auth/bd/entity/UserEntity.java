@@ -20,6 +20,9 @@ public class UserEntity {
     @Column(name = "login")
     private String userName;
 
+    @Column(name = "login")
+    private String login;
+
     @Column(name = "password")
     private String password;
 
@@ -68,5 +71,13 @@ public class UserEntity {
 
     public void setRules(String rules) {
         this.rules = rules;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

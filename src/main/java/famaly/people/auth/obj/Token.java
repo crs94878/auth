@@ -64,6 +64,18 @@ public class Token {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateLogin;
 
+    public Token(){}
+
+    public void initToken(String session, String login, String userName, boolean validation,
+                 String tokenStr, XMLGregorianCalendar dateLogin){
+        this.session = session;
+        this.login = login;
+        this.userName = userName;
+        this.validation = validation;
+        this.tokenStr = tokenStr;
+        this.dateLogin = dateLogin;
+    }
+
     /**
      * Gets the value of the session property.
      * 

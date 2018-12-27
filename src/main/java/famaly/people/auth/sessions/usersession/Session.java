@@ -9,12 +9,6 @@ public class Session {
     protected String sessionName;
     protected  boolean isValidSession;
 
-    public Session(String sessionName, XMLGregorianCalendar dateCreateSession, boolean isValidSession) {
-        this.sessionName = sessionName;
-        this.dateCreateSession = dateCreateSession;
-        this.isValidSession = isValidSession;
-    }
-
     public String getSessionName(){
         return sessionName;
     }

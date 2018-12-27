@@ -1,18 +1,21 @@
 package famaly.people.auth.sessions.usersession;
 
 import famaly.people.auth.obj.Token;
+import famaly.people.auth.sessions.users.Account;
 import famaly.people.auth.sessions.users.User;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class UserAuthSession extends Session {
-    private User user;
+    private Account user;
     private Token tokenUser;
     private String rullesUser;
 
-    public  UserAuthSession(String sessionName, XMLGregorianCalendar dateCreateSession,
-                            boolean isValidSession, User user, Token token, String rulles){
-        super(sessionName, dateCreateSession, isValidSession);
+    public  void initUserAuthSession(String sessionName, XMLGregorianCalendar dateCreateSession,
+                            boolean isValidSession, Account user, Token token, String rulles){
+        super.sessionName = sessionName;
+        super.dateCreateSession = dateCreateSession;
+        super.isValidSession = isValidSession;
         this.user = user;
         this.tokenUser = token;
         this.rullesUser = rulles;
@@ -34,11 +37,11 @@ public class UserAuthSession extends Session {
         this.tokenUser = tokenUser;
     }
 
-    public User getUser() {
+    public Account getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Account user) {
         this.user = user;
     }
 }

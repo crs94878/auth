@@ -1,7 +1,11 @@
 package famaly.people.auth.configurationsapp;
 
+import famaly.people.auth.obj.Token;
 import famaly.people.auth.services.interfaces.GeneratedTokenService;
 import famaly.people.auth.services.ResponseAuthSessionsToken;
+import famaly.people.auth.sessions.SessionWorker;
+import famaly.people.auth.sessions.UserSession;
+import famaly.people.auth.sessions.usersession.UserAuthSession;
 import famaly.people.auth.token.worker.NewTokenSession;
 import famaly.people.auth.token.worker.TokenWorker;
 import org.hibernate.SessionFactory;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -48,7 +53,6 @@ public class AppConf {
         properties.put("current_session_context_class", //
                 env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
 
-
         // Fix Postgres JPA Error:
         // Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
         // properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
@@ -65,7 +69,6 @@ public class AppConf {
         System.out.println("## getSessionFactory: " + sf);
         return sf;
     }
-
     @Bean
     public GeneratedTokenService getGeneratedTokenService(){
         return new ResponseAuthSessionsToken();
@@ -75,5 +78,22 @@ public class AppConf {
     @Lazy
     public TokenWorker getTokenWorker(){
         return new NewTokenSession();
+    }
+
+    @Bean
+    @Scope(value = "prototype")
+    public Token getToken(){
+        return new Token();
+    }
+
+    @Bean
+    public UserSession getUserVorkSession(){
+        return new SessionWorker();
+    }
+
+    @Bean
+    @Scope(value = "prototype")
+    public UserAuthSession getUserAuthSession(){
+        return new UserAuthSession();
     }
 }
