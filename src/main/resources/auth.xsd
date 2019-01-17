@@ -9,7 +9,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="authResponse">
         <xs:complexType>
                 <xs:sequence>

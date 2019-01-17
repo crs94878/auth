@@ -6,18 +6,22 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import org.hibernate.annotations.NamedNativeQueries;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @Entity
-@NamedNativeQuery(name ="getUsersInfo" ,query = "{call [userspeopleinformer].[getUsersInfo]{:login, :password}}",
-        callable = true, resultClass = UserEntity.class)
+@NamedNativeQueries({
+@NamedNativeQuery(name ="getUsersInfo" ,
+        query = "call getUsersInfo(:login, :password)",
+        resultClass = UserEntity.class)
+})
 public class UserEntity {
 
     @Id @Column(name = "UserId", nullable = false)
     private String userId;
 
-    @Column(name = "login")
+    @Column(name = "userName")
     private String userName;
 
     @Column(name = "login")

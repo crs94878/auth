@@ -1,11 +1,16 @@
 package famaly.people.auth.sessions;
 
+import famaly.people.auth.bd.entity.UserEntity;
+import famaly.people.auth.sessions.users.Account;
 import famaly.people.auth.sessions.usersession.UserAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 
-public class SessionWorker implements UserSession {
+public class SessionsMapWorker implements UserSession{
+
+    @Autowired
+    Account account;
 
     @Autowired
     private HashMap<String, UserAuthSession> sessionsMap;
@@ -13,7 +18,7 @@ public class SessionWorker implements UserSession {
     @Override
     public void saveUserSession(UserAuthSession session) throws NullPointerException{
         if(session == null) throw new NullPointerException("Sesssion isn't be null");
-        sessionsMap.put(session.getSessionName(), session);
+        sessionsMap.putIfAbsent(session.getSessionName(), session);
     }
 
     @Override

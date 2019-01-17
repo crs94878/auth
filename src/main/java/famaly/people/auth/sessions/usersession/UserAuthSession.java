@@ -9,24 +9,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class UserAuthSession extends Session {
     private Account user;
     private Token tokenUser;
-    private String rullesUser;
 
     public  void initUserAuthSession(String sessionName, XMLGregorianCalendar dateCreateSession,
-                            boolean isValidSession, Account user, Token token, String rulles){
+                            boolean isValidSession, Account user, Token token){
         super.sessionName = sessionName;
         super.dateCreateSession = dateCreateSession;
         super.isValidSession = isValidSession;
         this.user = user;
         this.tokenUser = token;
-        this.rullesUser = rulles;
-    }
-
-    public String getRullesUser() {
-        return rullesUser;
-    }
-
-    public void setRullesUser(String rullesUser) {
-        this.rullesUser = rullesUser;
     }
 
     public Token getTokenUser() {
