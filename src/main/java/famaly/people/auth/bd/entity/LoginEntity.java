@@ -12,14 +12,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 @Entity
 @NamedNativeQueries({
-@NamedNativeQuery(name ="getUsersInfo" ,
-        query = "call getUsersInfo(:login, :password)",
-        resultClass = UserEntity.class)
+@NamedNativeQuery(name ="getAuthorisation" ,
+        query = "call getAuthorisation(:login, :password)",
+        resultClass = LoginEntity.class)
 })
-public class UserEntity {
+public class LoginEntity {
 
-    @Id @Column(name = "UserId", nullable = false)
-    private String userId;
+    @Id @Column(name = "loginId", nullable = false)
+    private String loginId;
 
     @Column(name = "userName")
     private String userName;
@@ -27,11 +27,13 @@ public class UserEntity {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "isValid")
+    private boolean isValid;
 
+    @Column(name = "userSecondName")
+    private String secondName;
 
-    @Column(name = "dateCreated")
+    @Column(name = "dateCreateLogin")
     private String dateCreateAccount;
 
     @Column(name = "rules")
@@ -45,12 +47,12 @@ public class UserEntity {
         return dateCreateAccount;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getLoginId() {
+        return loginId;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean getIsValid() {
+        return isValid;
     }
 
     public String getUserName() {
@@ -61,12 +63,12 @@ public class UserEntity {
         this.userName = userName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(boolean validation) {
+        this.isValid = validation;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(String loginId) {
+        this.loginId = loginId;
     }
 
     public void setDateCreateAccount(String dateCreateAccount) {
@@ -83,5 +85,13 @@ public class UserEntity {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 }

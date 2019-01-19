@@ -2,18 +2,18 @@ package famaly.people.auth.sessions.users;
 
 public class User {
     protected String userName;
-    protected String password;
+    protected String secondName;
 
-    public void intialize(String userName, String password){
+    protected void intialize(String userName, String secondName){
         this.userName = userName;
-        this.password = password;
+        this.secondName = secondName;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSecondName() {
+        return secondName;
     }
 }

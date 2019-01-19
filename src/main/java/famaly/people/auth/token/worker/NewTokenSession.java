@@ -1,15 +1,18 @@
 package famaly.people.auth.token.worker;
 
-import famaly.people.auth.bd.entity.UserEntity;
-import famaly.people.auth.obj.AuthRequest;
 import famaly.people.auth.obj.Token;
-import famaly.people.auth.sessions.UserSession;
 import famaly.people.auth.sessions.users.Account;
 import famaly.people.auth.sessions.usersession.UserAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 
@@ -26,16 +29,27 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
     @Override
     public void generate(Account account) {
         String randomTokenStr = UUID.randomUUID().toString();
-        byte[] loginByte = account.getUserName().getBytes();
-        byte[] passByte = account.getPassword().getBytes();
+        byte[] loginByte = account.getLogin().getBytes();
+        byte[] userNameByte = account.getUserName().getBytes();
+        byte[] secondNameByte = account.getSecondName().getBytes();
         String loginStr = loginByte.toString().substring(3);
-        String passStr = passByte.toString().substring(3);
-        String fullTokenStr = String.format("%s-%s-%s?%s@%s*", loginStr, passStr,
-                randomTokenStr, account.getRules(), account.getDateCreateAccount());
-        XMLGregorianCalendar dateGeneratedToken = null; //TODO НАПИСАТЬ ВРЕМЯ ГЕНЕРАЦИИ ТОКЕНА
-        XMLGregorianCalendar dateCreateSession = null; //TODO НАПИСАТЬ ВРЕМЯ ГЕНЕРАЦИИ ТОКЕНА
-        token.initToken(loginStr, account.getLogin(), account.getUserName(), true, fullTokenStr, dateGeneratedToken);
-        userAuthSession.initUserAuthSession(loginStr, dateCreateSession, true, account, token);
+        String userNameStr = userNameByte.toString().substring(3);
+        String secondNameStr = secondNameByte.toString().substring(3);
+
+        String fullTokenStr = String.format("%s-%s-%s-%s-%s-%s?%s@%s", account.getId(), loginStr,
+                userNameStr, secondNameStr, randomTokenStr, account.getRules(),
+                account.getDateCreateAccount(), account.isValid());
+        XMLGregorianCalendar dateGeneratedToken = null;
+        try {
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+            dateGeneratedToken =  DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        } catch (DatatypeConfigurationException generedDateEx){
+            System.out.println(generedDateEx.getMessage());
+        }
+        token.initToken(account.getId(), account.getLogin(), account.getUserName(), account.getSecondName(),
+                true, fullTokenStr, dateGeneratedToken, account.getRules());
+        userAuthSession.initUserAuthSession(account.getId(), dateGeneratedToken, true, account, token);
     }
 
     @Override

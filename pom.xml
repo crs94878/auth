@@ -93,11 +93,8 @@
             <artifactId>jtds</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.oracle.jdbc</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
+
 
         <dependency>
             <groupId>org.hibernate</groupId>

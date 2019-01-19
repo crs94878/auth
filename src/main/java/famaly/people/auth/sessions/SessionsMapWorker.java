@@ -1,6 +1,5 @@
 package famaly.people.auth.sessions;
 
-import famaly.people.auth.bd.entity.UserEntity;
 import famaly.people.auth.sessions.users.Account;
 import famaly.people.auth.sessions.usersession.UserAuthSession;
 import org.springframework.beans.factory.annotation.Autowired;

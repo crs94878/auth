@@ -1,7 +1,7 @@
 package famaly.people.auth.bd.repository;
 
-import famaly.people.auth.bd.entity.UserEntity;
+import famaly.people.auth.bd.entity.LoginEntity;
 
 public interface ReposytoryDBUserSearch {
-    UserEntity getUserEntity(String login, String pass);
+    LoginEntity getUserEntity(String login, String pass);
 }

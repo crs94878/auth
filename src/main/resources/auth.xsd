@@ -18,12 +18,14 @@
     </xs:element>
     <xs:complexType name="Token">
         <xs:sequence>
-            <xs:element name="session" type="xs:string"/>
+            <xs:element name="sessionId" type="xs:string"/>
             <xs:element name="login" type="xs:string"/>
             <xs:element name="userName" type="xs:string"/>
+            <xs:element name="useerSecondName" type="xs:string"/>
             <xs:element name="validation" type="xs:boolean"/>
             <xs:element name="tokenStr" type="xs:string"/>
             <xs:element name="dateLogin" type="xs:dateTime"/>
+            <xs:element name="rules" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

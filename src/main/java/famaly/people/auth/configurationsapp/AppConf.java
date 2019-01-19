@@ -36,10 +36,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AppConf {
 
-
-    @Autowired
-    private Environment env;
-
     @Bean
     public ServletRegistrationBean dispatcherServleet(ApplicationContext applicationContext){
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -64,7 +60,7 @@ public class AppConf {
 
 
     @Bean(name = "dataSource")
-    public DataSource getDataSource() {
+    public DataSource getDataSource(Environment env) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         // See: application.properties
@@ -80,7 +76,7 @@ public class AppConf {
 
     @Autowired
     @Bean(name = "sessionFactory")
-    public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
+    public SessionFactory getSessionFactory(DataSource dataSource, Environment env) throws Exception {
         Properties properties = new Properties();
 
         // See: application.properties

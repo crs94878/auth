@@ -1,10 +1,9 @@
 package famaly.people.auth.services;
 
-import famaly.people.auth.bd.entity.UserEntity;
+import famaly.people.auth.bd.entity.LoginEntity;
 import famaly.people.auth.bd.repository.ReposytoryDBUserSearch;
 import famaly.people.auth.obj.AuthRequest;
 import famaly.people.auth.obj.AuthResponse;
-import famaly.people.auth.obj.Token;
 import famaly.people.auth.services.interfaces.GeneratedTokenService;
 import famaly.people.auth.sessions.UserSession;
 import famaly.people.auth.sessions.users.Account;
@@ -32,7 +31,7 @@ public class ResponseAuthSessionsToken implements GeneratedTokenService {
     @Override
     public AuthResponse getSessionToken(AuthRequest request) {
         AuthResponse response = new AuthResponse();
-        UserEntity usersEntity = reposytoryDBUserSearch.getUserEntity(request.getLogin(),request.getPassword());
+        LoginEntity usersEntity = reposytoryDBUserSearch.getUserEntity(request.getLogin(),request.getPassword());
         authAccount.initialize(usersEntity);
         tokenSession.generate(authAccount);
         TokenWorker tokenWorker = (NewTokenSession)tokenSession;
