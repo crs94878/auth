@@ -35,7 +35,6 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
         String loginStr = loginByte.toString().substring(3);
         String userNameStr = userNameByte.toString().substring(3);
         String secondNameStr = secondNameByte.toString().substring(3);
-
         String fullTokenStr = String.format("%s-%s-%s-%s-%s-%s?%s@%s", account.getId(), loginStr,
                 userNameStr, secondNameStr, randomTokenStr, account.getRules(),
                 account.getDateCreateAccount(), account.isValid());
@@ -49,7 +48,7 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
         }
         token.initToken(account.getId(), account.getLogin(), account.getUserName(), account.getSecondName(),
                 true, fullTokenStr, dateGeneratedToken, account.getRules());
-        userAuthSession.initUserAuthSession(account.getId(), dateGeneratedToken, true, account, token);
+        userAuthSession.initUserAuthSession(account.getId(), dateGeneratedToken, account.isValid(), account, token);
     }
 
     @Override

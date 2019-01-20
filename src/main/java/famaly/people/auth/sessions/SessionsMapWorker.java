@@ -25,12 +25,17 @@ public class SessionsMapWorker implements UserSession, SessionValidControls {
     @Override
     public void saveUserSession(UserAuthSession session) throws NullPointerException{
         if(session == null) throw new NullPointerException("Sesssion isn't be null");
-        sessionsMap.putIfAbsent(session.getSessionName(), session);
+        sessionsMap.putIfAbsent(session.getUser().getLogin(), session);
     }
 
     @Override
-    public HashMap<String, UserAuthSession> getSavedSessions() {
-        return sessionsMap;
+    public UserAuthSession getSavedSession(@NotNull String sessionName) {
+        return sessionsMap.get(sessionName);
+    }
+
+    @Override
+    public boolean isSessionFound(@NotNull String login) {
+        return sessionsMap.containsKey(login);
     }
 
 
@@ -48,8 +53,7 @@ public class SessionsMapWorker implements UserSession, SessionValidControls {
                             if (isNeadChanggeState(session)) {
                                 session.setValidSession(false);
                             }
-
-                        };
+                        }
                     try {
                         Thread.sleep(1000);
                     } catch (Exception ex){}
@@ -64,8 +68,11 @@ public class SessionsMapWorker implements UserSession, SessionValidControls {
         int hourLogin = session.getDateCreateSession().getHour();
         int minutLogin = session.getDateCreateSession().getMinute();
         int secondLogin = session.getDateCreateSession().getSecond();
-        int l = LocalDateTime.now().getSecond();
-        if((LocalDateTime.now().getSecond() - secondLogin)>2){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        //session.getDateCreateSession().toGregorianCalendar().toZonedDateTime().toLocalDateTime().is
+        boolean l =((localDateTime.getHour() - hourLogin) == 0) & ((localDateTime.getMinute() - minutLogin) > 0);
+        if(((localDateTime.getHour() - hourLogin) == 0) & ((localDateTime.getMinute() - minutLogin) > 0) ||
+                ((localDateTime.getHour() - hourLogin) > 0 & ((minutLogin - localDateTime.getMinute()) >1))){
             return true;
         }
         return false;

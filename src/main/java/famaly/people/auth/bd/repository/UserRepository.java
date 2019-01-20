@@ -1,6 +1,7 @@
 package famaly.people.auth.bd.repository;
 
 import famaly.people.auth.bd.entity.LoginEntity;
+import famaly.people.auth.obj.AuthRequest;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +22,7 @@ public class UserRepository implements ReposytoryDBUserSearch{
     private SessionFactory sessionFactory;
 
     @SuppressWarnings("uncheked")
-    public LoginEntity getUserEntity(String login, String pass){
+    public LoginEntity getUserEntity(AuthRequest request){
         Session session = null;
         try {
             session = sessionFactory.getCurrentSession();
@@ -30,8 +31,8 @@ public class UserRepository implements ReposytoryDBUserSearch{
         }
         Query authQuery = session.getNamedQuery("getAuthorisation");
 
-        authQuery.setParameter("login", login);
-        authQuery.setParameter("password", pass);
+        authQuery.setParameter("login", request.getLogin());
+        authQuery.setParameter("password", request.getPassword());
 
         List<LoginEntity> listResult = authQuery.list();
         return listResult.get(0);

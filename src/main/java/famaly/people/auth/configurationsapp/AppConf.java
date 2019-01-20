@@ -1,5 +1,6 @@
 package famaly.people.auth.configurationsapp;
 
+import famaly.people.auth.obj.AuthResponse;
 import famaly.people.auth.obj.Token;
 import famaly.people.auth.services.interfaces.GeneratedTokenService;
 import famaly.people.auth.services.ResponseAuthSessionsToken;
@@ -139,6 +140,12 @@ public class AppConf {
     @Bean
     public UserSession getUserVorkSession() {
         return new SessionsMapWorker();
+    }
+
+    @Bean
+    //@Scope(scopeName = "prototype")
+    public AuthResponse getAuthResponse(){
+        return new AuthResponse();
     }
 }
 

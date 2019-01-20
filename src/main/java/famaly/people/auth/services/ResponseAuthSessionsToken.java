@@ -29,18 +29,23 @@ public class ResponseAuthSessionsToken implements GeneratedTokenService {
     @Autowired
     private UserSession sessionsMapWorkerSave;
 
+    @Autowired
+    private AuthResponse response;
+
     @Override
     public AuthResponse getSessionToken(AuthRequest request) {
-        AuthResponse response = new AuthResponse();
-        LoginEntity usersEntity = reposytoryDBUserSearch.getUserEntity(request.getLogin(),request.getPassword());
+        UserAuthSession session;
+        LoginEntity usersEntity = reposytoryDBUserSearch.getUserEntity(request);
         authAccount.initialize(usersEntity);
-        tokenSession.generate(authAccount);
-        TokenWorker tokenWorker = (NewTokenSession)tokenSession;
-        SessionWorker sessionWorker = (NewTokenSession) tokenSession;
-        response.setToken(tokenWorker.getNewTokenToSession());
-        UserAuthSession session = sessionWorker.getUserSesion();
+        this.generatToken();
+        session = ((NewTokenSession)tokenSession).getUserSesion();
         sessionsMapWorkerSave.saveUserSession(session);
         ((SessionValidControls) sessionsMapWorkerSave).startValidControlsSession();
         return response;
+    }
+    private void generatToken(){
+        tokenSession.generate(authAccount);
+        TokenWorker tokenWorker = (NewTokenSession) tokenSession;
+        response.setToken(tokenWorker.getNewTokenToSession());
     }
 }

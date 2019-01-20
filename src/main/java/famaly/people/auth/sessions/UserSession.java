@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public interface UserSession {
     void saveUserSession(UserAuthSession session);
-    HashMap<String, UserAuthSession> getSavedSessions();
+    UserAuthSession getSavedSession(String sessionName);
+    boolean isSessionFound(String login);
 
 }
