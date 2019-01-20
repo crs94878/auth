@@ -20,4 +20,8 @@ public class Session {
     public boolean isValidSession() {
         return isValidSession;
     }
+
+    public void setValidSession(boolean value){
+        this.isValidSession = value;
+    }
 }

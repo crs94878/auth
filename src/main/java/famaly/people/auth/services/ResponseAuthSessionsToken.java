@@ -8,6 +8,7 @@ import famaly.people.auth.services.interfaces.GeneratedTokenService;
 import famaly.people.auth.sessions.UserSession;
 import famaly.people.auth.sessions.users.Account;
 import famaly.people.auth.sessions.usersession.UserAuthSession;
+import famaly.people.auth.sessions.valid.controls.SessionValidControls;
 import famaly.people.auth.token.worker.NewTokenSession;
 import famaly.people.auth.token.worker.SessionWorker;
 import famaly.people.auth.token.worker.TokenSessionGenerators;
@@ -39,6 +40,7 @@ public class ResponseAuthSessionsToken implements GeneratedTokenService {
         response.setToken(tokenWorker.getNewTokenToSession());
         UserAuthSession session = sessionWorker.getUserSesion();
         sessionsMapWorkerSave.saveUserSession(session);
+        ((SessionValidControls) sessionsMapWorkerSave).startValidControlsSession();
         return response;
     }
 }
