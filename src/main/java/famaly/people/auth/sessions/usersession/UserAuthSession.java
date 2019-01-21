@@ -11,12 +11,13 @@ public class UserAuthSession extends Session {
     private Token tokenUser;
 
     public  void initUserAuthSession(String sessionName, XMLGregorianCalendar dateCreateSession,
-                            boolean isValidSession, Account user, Token token){
+                            boolean isValidSession, Account user, Token token, String appName){
         super.sessionName = sessionName;
         super.dateCreateSession = dateCreateSession;
         super.isValidSession = isValidSession;
         this.user = user;
         this.tokenUser = token;
+        super.appName = appName;
     }
 
     public Token getTokenUser() {

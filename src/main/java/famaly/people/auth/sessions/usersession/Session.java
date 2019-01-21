@@ -8,6 +8,7 @@ public class Session {
     protected XMLGregorianCalendar dateCreateSession;
     protected String sessionName;
     protected  boolean isValidSession;
+    protected String appName;
 
     public String getSessionName(){
         return sessionName;
@@ -23,5 +24,13 @@ public class Session {
 
     public void setValidSession(boolean value){
         this.isValidSession = value;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

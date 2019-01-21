@@ -27,7 +27,7 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
     private UserAuthSession userAuthSession;
 
     @Override
-    public void generate(Account account) {
+    public void generate(Account account, String appName) {
         String randomTokenStr = UUID.randomUUID().toString();
         byte[] loginByte = account.getLogin().getBytes();
         byte[] userNameByte = account.getUserName().getBytes();
@@ -48,7 +48,8 @@ public class NewTokenSession implements TokenWorker, SessionWorker, TokenSession
         }
         token.initToken(account.getId(), account.getLogin(), account.getUserName(), account.getSecondName(),
                 true, fullTokenStr, dateGeneratedToken, account.getRules());
-        userAuthSession.initUserAuthSession(account.getId(), dateGeneratedToken, account.isValid(), account, token);
+        userAuthSession.initUserAuthSession(account.getId(), dateGeneratedToken,
+                account.isValid(), account, token, appName);
     }
 
     @Override
