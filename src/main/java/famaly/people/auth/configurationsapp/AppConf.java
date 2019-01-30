@@ -4,15 +4,10 @@ import famaly.people.auth.obj.AuthResponse;
 import famaly.people.auth.obj.Token;
 import famaly.people.auth.services.interfaces.GeneratedTokenService;
 import famaly.people.auth.services.ResponseAuthSessionsToken;
-import famaly.people.auth.sessions.SessionsMapWorker;
-import famaly.people.auth.sessions.UserSession;
-import famaly.people.auth.sessions.users.Account;
-import famaly.people.auth.sessions.usersession.UserAuthSession;
 import famaly.people.auth.token.worker.NewTokenSession;
 import famaly.people.auth.token.worker.TokenWorker;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +25,6 @@ import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.Properties;
 
 @Configuration
@@ -115,31 +109,9 @@ public class AppConf {
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public UserAuthSession getUserAuthSession() {
-        return new UserAuthSession();
-    }
-
-    @Bean
     @Scope(value = "prototype")
     public Token getToken() {
         return new Token();
-    }
-
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public Account getAccount(){
-        return new Account();
-    }
-
-    @Bean
-    public HashMap<String, UserAuthSession> getSessionsMap(){
-        return new HashMap<>();
-    }
-
-    @Bean
-    public UserSession getUserVorkSession() {
-        return new SessionsMapWorker();
     }
 
     @Bean
