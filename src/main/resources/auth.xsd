@@ -19,7 +19,7 @@
     </xs:element>
     <xs:complexType name="Token">
         <xs:sequence>
-            <xs:element name="sessionId" type="xs:string"/>
+            <xs:element name="loginId" type="xs:string"/>
             <xs:element name="login" type="xs:string"/>
             <xs:element name="userName" type="xs:string"/>
             <xs:element name="useerSecondName" type="xs:string"/>
